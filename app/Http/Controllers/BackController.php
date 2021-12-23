@@ -231,7 +231,7 @@ class BackController extends Controller
         ->where('Code','copyright')
         ->update(['Description' => $request->copyright]);
 
-        //ogo
+        //logo
         if(!empty($request->file('logo'))){ 
             
 
@@ -309,7 +309,7 @@ class BackController extends Controller
     public function page_edit_post(Request $request, $id){
 
 
-        if($request->Name == '' || $request->Font ==  ''){
+        if($request->Name == ''){
 
             // Thông báo cảnh báo
             return redirect('admin/page/edit/'.$id)->with(['flash_level' => 'danger', 'flash_message' => 'Vui lòng điền vào chỗ có dấu *']);
@@ -320,8 +320,10 @@ class BackController extends Controller
         
         $Page->Status = $request->Status;
         $Page->Name = $request->Name;
+        $Page->Alias = $request->Alias;
         $Page->Font = $request->Font;
         $Page->Sort = $request->Sort;
+        $Page->Description = $request->Description; 
 
         
         $Flag = $Page->save();
@@ -578,6 +580,7 @@ class BackController extends Controller
         $News->Status = $request->Status;
         $News->RowIDCat = $request->RowIDCat;
         $News->Name = $request->Name;
+        $News->Alias = $request->Alias;
         $News->MetaTitle = $request->MetaTitle;
         $News->MetaDescription = $request->MetaDescription;
         $News->MetaKeyword = $request->MetaKeyword;
@@ -689,6 +692,7 @@ class BackController extends Controller
         $News->Status = $request->Status;
         $News->RowIDCat = $request->RowIDCat;
         $News->Name = $request->Name;
+        $News->Alias = $request->Alias;
         $News->MetaTitle = $request->MetaTitle;
         $News->MetaDescription = $request->MetaDescription;
         $News->MetaKeyword = $request->MetaKeyword;
