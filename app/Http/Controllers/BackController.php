@@ -19,7 +19,7 @@ use App\Model\System;
 
 class BackController extends Controller
 {
-    public function _construct(){
+    public function __construct(){
         @session_start();
     }
 

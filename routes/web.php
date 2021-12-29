@@ -22,6 +22,8 @@ Route::get('/','FrontController@home');
 
 Route::get('/lien-he','FrontController@contact');
 
+Route::post('/dang-ky-nhan-tin','FrontController@subEmail_post');
+
 
 //administrator 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'],function(){

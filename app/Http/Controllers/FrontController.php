@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 use App\User;
 use App\Model\UserLevel;;
@@ -19,22 +20,143 @@ use App\Model\System;
 
 class FrontController extends Controller
 {
-    public function _construct(){
+    public function __construct(){
         @session_start();
+
+
+
+        
+        $Page = Page::where('Status',1)->selectRaw('Name,Alias')->orderBy('Sort','ASC')->get();
+        view()->share('Page',$Page);
+        // social 
+        $Social = Social::where('Status',1)->selectRaw('Name, Font , Alias')->orderBy('Sort','ASC')->get();
+        view()->share('Social',$Social);
+
+        $CatNews = NewsCategory::where('Status',1)->selectRaw('Name')->get();
+        view()->Share('CatNews',$CatNews);
+
+        $CopyRight = System::select('Description')->where('code','copyright')->first();
+        view()->share('CopyRight',$CopyRight);
+
+        $NameGroup = System::select('Description')->where('code','Name')->first();
+        view()->share('NameGroup',$NameGroup);
+
+        // email sdt dia chi
+
+        $Email = System::select('Description')->where('code','email')->first();
+        view()->share('Email',$Email);
+
+        $Phone = System::select('Description')->where('code','phone')->first();
+        view()->share('Phone',$Phone);
+
+        $Add = System::select('Description')->where('code','address')->first();
+        view()->share('Add',$Add);
+
+        
+        
+        
+
+        
     }
 
 
     public function home(){
-        return view('front.home.home');
+       
+        // $News = News::where('Status',1)->selectRaw('RowID,Name, Images, SmallDescription,Description,created_at')->orderBy('RowID','DESC')-> limit(6)->get();
+        // view()->share('News',$News);
+
+        // $News = DB::table('news as a')
+        // ->join('news_cat', 'a.RowIDCat', '=', 'news_cat.RowID')
+        // ->selectRaw('a.*')
+        // ->orderBy('a.RowID','DESC')
+        // ->limit(6)->get();\
+        
+        $News = DB::table('news as a')
+        ->join('news_cat as b', 'a.RowIDCat', '=' , 'b.RowID')
+        ->selectRaw('a.*, b.Name as CategoryName')
+        ->orderBy('a.RowId','DESC')
+        ->limit(6)
+        ->get();
+
+        $NewsMostView = DB::table('news as a')
+        ->join('news_cat as b', 'a.RowIDCat', '=' , 'b.RowID')
+        ->selectRaw('a.*, b.Name as CategoryName')
+        ->orderBy('a.Views','DESC')
+        ->limit(1)
+        ->get();
+       
+
+
+        return view('front.home.home',compact('News','NewsMostView'));
     }
+
+    
 
     public function contact(){
         
         echo "This is contact page";
     }
 
+    // --- dang ky nhan tin 
+    public function subEmail_post(){
+       
+            // if($request->txtEmailSub != ''){
+            //     $Newsletter = Newsletter::where('Email',$request->txtEmailSub)->get();
+                
+            //     if(isset($Newsletter) && count($Newsletter) > 0){
+            //         echo `<script> alert('Ten email da ton tai') </script>`;
+            //     }else{
+            //         echo `<scirpt> alert('khong co gì cả'); </script>`;
+            //         $Newsletter = new Newsletter;
 
+            //         $NewsLetter->Email = $request->txtEmailSub;
+                    
+            //         $Flag = $Newsletter->save();
+
+            //         if($Flag == true){
+            //            echo `<script> alert('Them thanh cong') </script>`;
+                      
+            //         }else{
+            //             echo `<script> alert('Loi') </script>`;
+            //         }
+            
+            //     }
+            // }else{
+            //     echo `<script> alert('Tên email không hợp lệ') </script>`;
+            // }
+            // return redirect('');
+
+            $tenEmail = null;
+            if(isset($_POST['gui'])){
+                $tenEmail = $_POST['txtEmailSub'];
+
+            }
+
+            if($tenEmail != null){
+                $Newsletter = Newsletter::where('Email',$tenEmail)->get();
+                if(isset($Newsletter) && count($Newsletter) > 0){
+                            echo `<script> alert('Ten email da ton tai') </script>`;
+                }else{
+                        
+                    $Newsletter = new Newsletter;
+                    
+                    $Newsletter->Email = $tenEmail;
+                    $Flag = $Newsletter->save();
+
+                    if($Flag == true){
+                        echo `<script> alert('Them thanh cong') </script>`;
+                        
+                        
+                    }else{
+                        echo `<script> alert('Loi') </script>`;
+                    }
+                }
+            }
+            return redirect('/');
+    
+    //--- -dang ky nhan tin
+    
   
     
+    }
 }
-
