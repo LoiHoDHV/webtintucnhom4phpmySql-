@@ -24,7 +24,7 @@
                         <div class="small text-muted">{!!$v->created_at!!}</div>
                         <h2 class="card-title">{!!$v->Name!!} - <i class="fas fa-eye"></i> {!!$v->Views!!}</h2>
                         <p class="card-text">{{ \Illuminate\Support\Str::limit($v->SmallDescription, 150, $end='...') }}</p>
-                        <a class="btn btn-primary" href="#!">Đọc tiếp →</a>
+                        <a class="btn btn-primary" href="{{url('/'.$v->Alias.'.html')}}">Đọc tiếp →</a>
                     </div>
                     @endforeach
                     @endif
@@ -46,7 +46,7 @@
                                 <h2 class="card-title h4">{!!$v->Name!!} - <i class="fas fa-eye"></i> {!!$v->Views!!}</h2>
                                 <p class="card-text">
                                     {{ \Illuminate\Support\Str::limit($v->SmallDescription, 150, $end='...') }}</p>
-                                <a class="btn btn-primary" href="#!">Đọc tiếp →</a>
+                                <a class="btn btn-primary" href="{{url('/'.$v->Alias .'.html')}}">Đọc tiếp →</a>
                             </div>
                         </div>
                     </div>
@@ -64,14 +64,7 @@
                 <nav aria-label="Pagination">
                     <hr class="my-0" />
                     <ul class="pagination justify-content-center my-4">
-                        <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1"
-                                aria-disabled="true">Newer</a></li>
-                        <li class="page-item active" aria-current="page"><a class="page-link" href="#!">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">3</a></li>
-                        <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">15</a></li>
-                        <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                        
                     </ul>
                 </nav>
             </div>
@@ -97,7 +90,7 @@
                                 <ul class="list-unstyled mb-0">
                                     @if(isset($CatNews) && count($CatNews) > 0)
                                     @foreach($CatNews as $k => $v)
-                                    <li> <a href="#!">{!!$v->Name!!}</a></li>
+                                    <li> <a href="{{url('/'.$v->Alias)}}">{!!$v->Name!!}</a></li>
 
                                     @endforeach
                                     @endif

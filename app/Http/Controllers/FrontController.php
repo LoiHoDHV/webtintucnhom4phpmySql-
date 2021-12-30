@@ -32,7 +32,7 @@ class FrontController extends Controller
         $Social = Social::where('Status',1)->selectRaw('Name, Font , Alias')->orderBy('Sort','ASC')->get();
         view()->share('Social',$Social);
 
-        $CatNews = NewsCategory::where('Status',1)->selectRaw('Name')->get();
+        $CatNews = NewsCategory::where('Status',1)->selectRaw('Name,Alias')->get();
         view()->Share('CatNews',$CatNews);
 
         $CopyRight = System::select('Description')->where('code','copyright')->first();
@@ -58,6 +58,8 @@ class FrontController extends Controller
 
         
     }
+
+
 
 
     public function home(){
@@ -207,6 +209,36 @@ class FrontController extends Controller
         return redirect('/lien-he');
         
 
+    }
+
+    public function slug(Request $request, $slug){
+
+        $newsCat = NewsCategory::where('Status',1)->where('Alias',$slug)->first();
+
+        if(isset($newsCat) && $newsCat != NULL){
+            $listNews = DB::table('news as a')
+            ->join('news_cat as b', 'a.RowIDCat', '=', 'b.RowID')
+            ->where('b.Alias',$slug)
+            ->where('a.Status',1)
+            ->selectRaw('a.Alias, a.Name, a.Images, a.SmallDescription,a.created_at,a.Views')
+            ->paginate(4);
+
+            return view('front.news.cat',compact('newsCat','listNews'));
+        }
+
+
+    }
+
+    public function slugHtml(Request $request, $slug){
+
+        $newsDetail = DB::table('news as a')
+        ->join('news_cat as b', 'a.RowIDCat', '=', 'b.RowID')
+        ->where('a.Status',1)
+        ->where('a.Alias',$slug)
+        ->selectRaw('a.Alias, a.Name, a.Images,a.created_at,a.Views,a.Description, b.Name as NewsCatName, b.Alias as NewsCatAlias')
+        ->first();
+
+        return view('front.news.detail',compact('newsDetail'));
     }
 
 

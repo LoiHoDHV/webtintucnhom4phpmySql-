@@ -23,7 +23,7 @@
         <ul class="list-group list-unstyled list-group-horizontal ">
             @if(isset($CatNews) && count($CatNews) > 0)
             @foreach($CatNews as $k => $v)
-            <li class="list-group-item list-group-item-dark "><a href="#!" class="link-dark"
+            <li class="list-group-item list-group-item-dark "><a href="{{url('/'.$v->Alias)}}" class="link-dark"
                     style="text-decoration: none;">{!!$v->Name!!}</a></li>
 
             @endforeach

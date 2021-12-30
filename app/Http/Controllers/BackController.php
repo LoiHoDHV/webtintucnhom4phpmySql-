@@ -528,6 +528,7 @@ class BackController extends Controller
 
         $NewsCategory->Name = $request->Name;
         $NewsCategory->Status = $request->Status;
+        $NewsCategory->Alias = $request->Alias;
         
 
         $Flag = $NewsCategory->save();
@@ -586,6 +587,7 @@ class BackController extends Controller
         $News->MetaKeyword = $request->MetaKeyword;
         $News->SmallDescription = $request->SmallDescription;
         $News->Description  = $request->Description;
+        
 
             // 
         // if($request->hasFile('Images')){
@@ -698,7 +700,7 @@ class BackController extends Controller
         $News->MetaKeyword = $request->MetaKeyword;
         $News->SmallDescription = $request->SmallDescription;
         $News->Description  = $request->Description;
-        $News->Images = $request->Image;
+        $News->Images = $request->Images;
 
         
         $Flag = $News->save();

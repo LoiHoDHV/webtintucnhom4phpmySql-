@@ -26,6 +26,15 @@ Route::post('/lien-he','FrontController@contact_post');
 Route::post('/dang-ky-nhan-tin','FrontController@subEmail_post');
 
 
+// router get từng trang theo danh mục
+
+Route::get('{slug}.html','FrontController@slugHtml');
+Route::get('{slug}','FrontController@slug');
+
+
+
+
+
 
 
 //administrator 

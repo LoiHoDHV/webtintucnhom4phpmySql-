@@ -39,7 +39,13 @@
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Tên danh mục<span class="color_red">*</span></label>
-                    <input type="text" class="form-control" name="Name" value="{{$NewsCategory->Name}}">
+                    <input type="text" class="form-control" name="Name"  id = "title" onkeyup="ChangeToSlug()" value="{{$NewsCategory->Name}}">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Alias<span class="color_red">*</span></label>
+                    <input type="text" class="form-control" name="Alias" id="slug" value="{{$NewsCategory->Alias}}">
+                    
                 </div>
                 
 
