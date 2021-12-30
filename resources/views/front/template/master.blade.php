@@ -19,6 +19,10 @@
     <script type="text/javascript">
     var url = "{!!url('/')!!}";
     </script>
+    
+    <!-- Include the above in your HEAD tag ----->
+   
+    <!------ Include the above in your HEAD tag ---------->
     <style>
     .fab {
         padding: 20px;
@@ -72,8 +76,8 @@
     <script src="{{url('/front_assets/js/scripts.js')}}"></script>
     <!--boostrap jquey -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js">
-    
-    <!-- boostrap script-->
+    <!-- boostrap script
+    -->
     <script src="{{url('/bootstrap-3.4.1/dist/js/bootstrap.min.js')}}"></script>
 
 

@@ -21,8 +21,11 @@ Route::get('/logout','UserController@getLogout');
 Route::get('/','FrontController@home');
 
 Route::get('/lien-he','FrontController@contact');
+Route::post('/lien-he','FrontController@contact_post');
 
 Route::post('/dang-ky-nhan-tin','FrontController@subEmail_post');
+
+
 
 
 //administrator 

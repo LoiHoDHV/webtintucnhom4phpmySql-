@@ -70,6 +70,9 @@ class FrontController extends Controller
         // ->selectRaw('a.*')
         // ->orderBy('a.RowID','DESC')
         // ->limit(6)->get();\
+
+
+        $PageInfo = Page::where('Status',1)->where('Alias','/')->SelectRaw('Name,Alias')->first();
         
         $News = DB::table('news as a')
         ->join('news_cat as b', 'a.RowIDCat', '=' , 'b.RowID')
@@ -87,15 +90,12 @@ class FrontController extends Controller
        
 
 
-        return view('front.home.home',compact('News','NewsMostView'));
+        return view('front.home.home',compact('PageInfo','News','NewsMostView'));
     }
 
     
 
-    public function contact(){
-        
-        echo "This is contact page";
-    }
+    
 
     // --- dang ky nhan tin 
     public function subEmail_post(){
@@ -159,4 +159,56 @@ class FrontController extends Controller
   
     
     }
+
+
+    
+
+    public function contact(){
+        
+        $PageInfo = Page::where('Status',1)->where('Alias','lien-he')->SelectRaw('Name,Alias,Description')->first();
+        
+        return view('front.contact.contact',compact('PageInfo'));
+
+    }
+
+    public function contact_post(){
+
+        $tenEmail = null;
+        $hoVaTen = null;
+        $soDienThoai = null;
+        $loiNhan = null;
+
+        if(isset($_POST['gui'])){
+            $tenEmail = $_POST['email'];
+            $hoVaTen = $_POST['name'];
+            $soDienThoai = $_POST['phone'];
+            $loiNhan = $_POST['message'];
+            
+
+        }
+
+        $Contact = new Contact;
+
+        $Contact->Name = $hoVaTen;
+        $Contact->Email = $tenEmail;
+        $Contact->Phone = $soDienThoai;
+        $Contact->Message = $loiNhan;
+        $Flag = $Contact->save();
+
+        if($Flag == true){
+            echo `<script> alert('Them thanh cong') </script>`;
+            
+            
+        }else{
+            echo `<script> alert('Loi') </script>`;
+        }
+        
+
+        return redirect('/lien-he');
+        
+
+    }
+
+
+    /// Trang lien he
 }

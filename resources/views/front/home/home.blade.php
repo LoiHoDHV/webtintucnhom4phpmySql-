@@ -1,6 +1,6 @@
 @extends('front.template.master')
 
-@section('title', 'Dân trí')
+@section('title', $PageInfo->Name)
 
 
 

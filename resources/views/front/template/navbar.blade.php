@@ -14,7 +14,9 @@
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0" style="float:right;">
                     @if(isset($Page) && count($Page) > 0)
                     @foreach($Page as $k => $v)
-                    <li class="nav-item "><a class="nav-link" href="#">{!!$v->Name!!}</a></li>
+                    
+                    <li class="nav-item "><a class="nav-link" href="{{url(''.$v->Alias)}}">{!!$v->Name!!}</a></li>
+                    
                     @endforeach
                     @endif
                     <li class="nav-item "><a class="nav-link" href="{{url('/login')}}" target="_blank">Đăng nhập</a></li>
